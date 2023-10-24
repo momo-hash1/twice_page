@@ -1,0 +1,16 @@
+$pink: #FF5FA2;
+$orange: #FCC89B;
+$red: #ED2D5B;
+$white: #fff;
+$black: #161616;
+
+$header: 5;
+$content: 2;
+$block_overlay: 3;
+
+@mixin reset-list() {
+  list-style: none;
+  padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}

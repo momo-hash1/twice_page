@@ -1,0 +1,43 @@
+@use "../utils/variables.scss" as *;
+@use "../utils/media.scss" as *;
+
+.about {
+  padding-top: 34px;
+  &__title {
+    font-size: 150px;
+    font-weight: 500; 
+  }
+  &__short-description {
+    color: $white;
+    line-height: 150%;
+    font-size: 24px;
+  }
+  &__text {
+    color: $white;
+    margin-top: 112px;
+    font-size: 24px;
+    line-height: 150%; 
+    p+p{
+      margin-top: 20px;
+    }
+  }
+  &__top {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 54px;
+    &__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    &__image {
+      height: 480px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

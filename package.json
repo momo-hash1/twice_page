@@ -1,0 +1,33 @@
+{
+  "name": "twice_page",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.9.3",
+    "html-webpack-plugin": "^5.5.3",
+    "webpack": "^5.88.2"
+  },
+  "dependencies": {
+    "@studio-freight/lenis": "^1.0.27",
+    "animejs": "^3.2.1",
+    "css-loader": "^6.8.1",
+    "html-loader": "^4.2.0",
+    "just-validate": "^4.2.0",
+    "mini-css-extract-plugin": "^2.7.6",
+    "parcel": "^2.9.3",
+    "sass": "^1.68.0",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3",
+    "svgjs": "^2.6.2",
+    "swiper": "^10.3.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
