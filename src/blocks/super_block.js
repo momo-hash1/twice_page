@@ -46,6 +46,7 @@ class Super_block {
     this.events.new_event(new Kinetic_scroll(window));
     list_blocks[0].style.display = "block";
     this.list_of_blocks[0].active = true;
+    this.list_of_blocks[0].show()
     
   }
 
@@ -72,9 +73,11 @@ class Super_block {
       
       this.current_block.active = false;
       this.current_block_id = future_block_id;
+      this.current_block.hide()
       this.current_block = this.get_current_block();
       
       this.current_block.reset();
+      this.current_block.locked = false
       this.current_block.active = true
       this.show_block(future_block_id);
     }
@@ -85,17 +88,21 @@ class Super_block {
   }
 
   add_event_listener() {
-
     this.events.add_listener(event_type.reached_end, (e) => {
+      
       if (this.can_slide_next(this.current_block_id)) {
         this.show_preview_block(100);
+        this.current_block.locked = true
         return
       }
-    });
 
+    });
+    
     this.events.add_listener(event_type.reached_start, (e) => {
+      
       if (this.can_slide_prev(this.current_block_id)) {
         this.show_preview_block(-100);
+        this.current_block.locked = true
         return
       }
     });
@@ -105,13 +112,17 @@ class Super_block {
       this.current_block.events.unfreeze_event(Kinetic_scroll)
 
     });
+    this.events.add_listener(event_type.preview_transition_disappear, () => {
+      this.current_block.locked = false
+      this.current_block.show()
+    });
 
-    this.events.add_listener(event_type.actual_scrolling, (e) => {});
   }
 
   show_preview_block(delta) {
     const preview_block = this.special_blocks.preview_block;
-    preview_block.show(delta);
+    preview_block.direction = delta
+    preview_block.show();
   }
 
   show_block(block_id) {

@@ -9,7 +9,7 @@ html {
 
 body {
   margin: 0;
-}
+} 
 p,
 h1, 
 h2,
@@ -68,9 +68,7 @@ h3 {
 } 
 .block {
   position: relative;
-  min-height: 100vh;
   overflow: hidden;
-  height: 100vh;
   &__content {
     transform-origin: bottom;
     transition: transform ease 150ms;
@@ -78,6 +76,8 @@ h3 {
     position: relative;
     padding-right: 65px;
     padding-left: 65px;
+    
+    box-sizing: border-box;
   }
   &__bg {
     position: absolute;
@@ -96,8 +96,7 @@ h3 {
     &_up {
       height: 0;
       top: 0;
-      // transition: height ease 500ms, top ease 500ms;
-    }
+     }
     &_down {
       bottom: 0;
       transform: translateY(100%);

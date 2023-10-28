@@ -1,13 +1,13 @@
 import events_type from "./events_type";
 
 class Swipe {
-  startX = 0;
+  startPos = { x: 0, y: 0 };
   observer = null;
   pressed = false;
   block = null;
   emulate_touch;
 
-  constructor(block, emulate_touch = true) {
+  constructor(block, emulate_touch = false) {
     this.block = block;
     this.emulate_touch = emulate_touch;
   }
@@ -25,38 +25,53 @@ class Swipe {
   }
 
   pointer_move(e) {
+    if(e.button !== 0 && e.button !== undefined) return
+    console.log(e.button);
     if (!this.isPressed) return;
-    this.observer.emit_event(events_type.swiping, { distance: this.swipe_distance(e) });
+    const distance = this.pointer_pos(e);
+
+    this.observer.emit_event(events_type.swiping, {
+      distance: this.swipe_distance(e),
+      angle: Math.atan2(Math.abs(this.startPos.x - distance.x), Math.abs(this.startPos.y - distance.y)) * (180 / Math.PI),
+    });
   }
 
   pointer_down(e) {
+    if(e.button !== 0&& e.button !== undefined) return
+
     e.preventDefault();
     this.isPressed = true;
-    this.startX = this.pointer_pos(e);
+    this.startPos = this.pointer_pos(e);
     this.observer.emit_event(events_type.swipe_start);
   }
 
   pointer_up(e) {
+    if(e.button !== 0&& e.button !== undefined) return
+
     this.observer.emit_event(events_type.swipe_end, { distance: this.swipe_distance(e) });
     this.isPressed = false;
-    this.startX = 0;
+    this.reset_pos();
   }
 
   pointer_leave() {
     this.isPressed = false;
-    this.startX = 0;
+    this.reset_pos();
   }
-
+  reset_pos() {
+    this.startPos.x = 0;
+    this.startPos.y = 0;
+  }
   swipe_distance(e) {
-    return this.pointer_pos(e) - this.startX;
+    const pos = this.pointer_pos(e);
+    return { x: pos.x - this.startPos.x, y: pos.y - this.startPos.y };
   }
 
   pointer_pos(e) {
     if (e.touches === undefined) {
-      return e.clientX;
+      return { x: e.clientX, y: e.clientY };
     }
 
-    return e.changedTouches[0].clientX;
+    return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
   }
 }
 

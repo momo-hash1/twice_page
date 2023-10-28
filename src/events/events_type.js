@@ -9,5 +9,6 @@ export default {
   reached_end: "reached_end",
   reached_start: "reached_start",
   preview_transition: "preview_transition",
+  preview_transition_disappear: "preview_transition_disappear",
   wheel: "wheel"
 }
