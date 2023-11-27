@@ -98,9 +98,16 @@ class Carousel extends Basic_block {
     }
     const elapsed = time - this.start_time;
     
-    if (elapsed >= 2000 && !isNaN(elapsed) && this.can_slide_next()) {
+    console.log(!this.swiper.isEnd);
+    if (elapsed >= 2000 && !isNaN(elapsed) && !this.swiper.isEnd) {
       this.start_time = time;
       this.show_next_slide();
+    }
+    if(this.swiper.isEnd && elapsed >= 2000){
+      this.start_time = time;
+      this.pause = true;
+      this.programatic_slide_hide(() => this.swiper.slideToLoop(0, 0, false));
+  
     }
     this.update_nav(elapsed);
     requestAnimationFrame(this.autoplay.bind(this));
@@ -208,7 +215,7 @@ class Carousel extends Basic_block {
   }
 
   show_next_slide() {
-    if (!this.can_slide_next()) return;
+    if (this.swiper.isEnd) return;
     this.pause = true;
     this.programatic_slide_hide(() => this.swiper.slideNext(0));
   }
@@ -264,9 +271,6 @@ class Carousel extends Basic_block {
     }
   }
 
-  can_slide_next() {
-    return this.swiper.activeIndex !== this.swiper.slides.length - 1;
-  }
 
   resetAnimElementsPos() {
     this.pause = false;

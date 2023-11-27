@@ -26,7 +26,6 @@ class Swipe {
 
   pointer_move(e) {
     if(e.button !== 0 && e.button !== undefined) return
-    console.log(e.button);
     if (!this.isPressed) return;
     const distance = this.pointer_pos(e);
 

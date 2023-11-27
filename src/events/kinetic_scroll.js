@@ -13,7 +13,6 @@ class Kinetic_scroll extends Basic_event {
   max_scroll = 0;
   trigered = false;
   desktop_last_wheel_timeout;
-
   constructor(max_scroll) {
     super();
     this.max_scroll = max_scroll;
@@ -33,7 +32,6 @@ class Kinetic_scroll extends Basic_event {
     });
 
     this.observer.add_listener(event_type.swipe_start, () => {
-
       this.touch_active_pos = this.active_pos;
     });
 
@@ -53,7 +51,9 @@ class Kinetic_scroll extends Basic_event {
         return;
       }
       this.trigered = true;
+
       this.active_pos = this.touch_active_pos - e.distance.y;
+
     });
 
     this.observer.add_listener(event_type.swipe_end, (e) => {
